@@ -82,3 +82,51 @@ async function purchase() {
       "❌ เกิดข้อผิดพลาด: " + e.message;
   }
 }
+async function claimReward() {
+  if (!account || !stakingContract) {
+    document.getElementById("claimStatus").innerText = "⚠️ กรุณาเชื่อมกระเป๋าหรือรอสักครู่ แล้วลองใหม่อีกครั้ง";
+    return;
+  }
+
+  try {
+    const lastClaimed = await stakingContract.methods.lastClaimed(account).call();
+    const interval = await stakingContract.methods.CLAIM_INTERVAL().call();
+    const now = Math.floor(Date.now() / 1000);
+
+    if (now >= parseInt(lastClaimed) + parseInt(interval)) {
+      await stakingContract.methods.claimStakingReward().send({ from: account });
+      document.getElementById("claimStatus").innerText = "🎉 คุณเคลมรางวัลสำเร็จแล้ว!";
+    } else {
+      const remaining = parseInt(lastClaimed) + parseInt(interval) - now;
+      const minutes = Math.ceil(remaining / 60);
+      document.getElementById("claimStatus").innerText = `⏳ คุณต้องรออีก ${minutes} นาที จึงจะเคลมได้`;
+    }
+  } catch (error) {
+    console.error(error);
+    document.getElementById("claimStatus").innerText = "❌ เกิดข้อผิดพลาดในการเคลมรางวัล";
+  }
+}
+async function claimReward() {
+  if (!account || !stakingContract) {
+    document.getElementById("claimStatus").innerText = "⚠️ กรุณาเชื่อมกระเป๋าหรือรอสักครู่ แล้วลองใหม่อีกครั้ง";
+    return;
+  }
+
+  try {
+    const lastClaimed = await stakingContract.methods.lastClaimed(account).call();
+    const interval = await stakingContract.methods.CLAIM_INTERVAL().call();
+    const now = Math.floor(Date.now() / 1000);
+
+    if (now >= parseInt(lastClaimed) + parseInt(interval)) {
+      await stakingContract.methods.claimStakingReward().send({ from: account });
+      document.getElementById("claimStatus").innerText = "🎉 คุณเคลมรางวัลสำเร็จแล้ว!";
+    } else {
+      const remaining = parseInt(lastClaimed) + parseInt(interval) - now;
+      const minutes = Math.ceil(remaining / 60);
+      document.getElementById("claimStatus").innerText = `⏳ คุณต้องรออีก ${minutes} นาที จึงจะเคลมได้`;
+    }
+  } catch (error) {
+    console.error(error);
+    document.getElementById("claimStatus").innerText = "❌ เกิดข้อผิดพลาดในการเคลมรางวัล";
+  }
+}
