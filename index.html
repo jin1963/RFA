@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>KJC Referral Staker</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <style>
+    body {
+      background-color: #000;
+      color: gold;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: gold;
+      color: black;
+      border: none;
+      cursor: pointer;
+    }
+
+    #refSection {
+      display: none;
+      margin-top: 20px;
+    }
+
+    #status {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎁 KJC Referral System</h1>
+
+  <button onclick="connectWallet()">🔗 เชื่อมต่อกระเป๋า</button>
+  <p id="walletAddress">❌ ยังไม่เชื่อมต่อ</p>
+
+  <div id="refSection">
+    <h3>🔗 ลิงก์แนะนำของคุณ</h3>
+    <input id="refLink" readonly style="width: 80%;" />
+    <button onclick="copyRefLink()">📋 คัดลอกลิงก์</button>
+
+    <h3>📩 สมัคร Referrer</h3>
+    <input type="text" id="refInput" placeholder="Referrer Address" style="width: 300px;" />
+    <button onclick="registerReferrer()">📌 สมัคร Referrer</button>
+
+    <h3>💸 ซื้อเหรียญ KJC</h3>
+    <input type="number" id="usdtAmount" placeholder="จำนวน USDT" step="0.01" />
+    <button onclick="purchase()">💰 ซื้อ KJC</button>
+
+    <p id="status">🟡 รอการดำเนินการ</p>
+  </div>
+
+  <script src="main.js"></script>
+
+</body>
+</html>
