@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KJC Referral System</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>🎁 KJC Referral System</h1>
+    <p id="walletAddress">❌ ยังไม่เชื่อมต่อกระเป๋า</p>
+
+    <button onclick="connectWallet()">🔗 เชื่อมต่อกระเป๋า</button>
+
+    <div id="refSection" style="display:none;">
+      <p>🔗 ลิงก์แนะนำของคุณ:</p>
+      <input type="text" id="refLink" readonly />
+      <button onclick="copyRefLink()">📋 คัดลอกลิงก์</button>
+    </div>
+
+    <div>
+      <p>✉️ ใส่ Address ผู้นำแนะนำ:</p>
+      <input type="text" id="refInput" placeholder="Referrer Address" />
+      <button onclick="registerReferrer()">📌 สมัคร Referrer</button>
+    </div>
+
+    <div>
+      <p>💸 จำนวน USDT ที่จะใช้ซื้อ:</p>
+      <input type="number" id="usdtAmount" placeholder="10" />
+      <button onclick="purchase()">💰 ซื้อเหรียญ KJC</button>
+    </div>
+
+    <p id="status"></p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <script src="config.js"></script>
+  <script src="abi.js"></script>
+  <script src="usdtAbi.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
