@@ -247,11 +247,7 @@ async function registerReferrer() {
 
     const receipt = await web3.eth.getTransactionReceipt(txResponse.transactionHash);
     
-    if (receipt && receipt.status) {
-        document.getElementById("registerStatus").innerText = "✅ สมัคร Referrer สำเร็จแล้ว!"; 
-        document.getElementById("registerStatus"].classList.add("success");
-        console.log("registerReferrer: Confirmed:", receipt);
-    } else {async function buyToken() {
+    
   if (!stakingContract || !account || !usdtContract || !routerContract || typeof usdtDecimals === 'undefined' || typeof kjcDecimals === 'undefined') {
     alert("⚠️ กำลังโหลดข้อมูล กรุณารอสักครู่แล้วลองใหม่");
     console.warn("buyToken: Contracts or decimals not initialized yet.");
@@ -259,7 +255,23 @@ async function registerReferrer() {
   }
 
   const rawInput = document.getElementById("usdtAmount").value.trim();
-  if (!rawInput || isNaN(rawInput) || parseFloat(rawInput) <= 0) {
+  if (!rawInput || isNaN(rawInput) || parseFloat(rawInput) <= 0) {    if (receipt && receipt.status) {
+        document.getElementById("registerStatus").innerText = "✅ สมัคร Referrer สำเร็จแล้ว!"; 
+        document.getElementById("registerStatus").classList.add("success");
+        console.log("registerReferrer: Confirmed:", receipt);
+    } else {
+        document.getElementById("registerStatus").innerText = "❌ การสมัคร Referrer ไม่สำเร็จ หรือธุรกรรมถูกปฏิเสธ";
+        document.getElementById("registerStatus").classList.add("error");
+        console.error("registerReferrer: Failed or not confirmed:", receipt);
+    }
+  } catch (e) {
+    console.error("registerReferrer: Error:", e);
+    const errorMessage = getFriendlyErrorMessage(e);
+    document.getElementById("registerStatus").innerText = `❌ เกิดข้อผิดพลาดในการสมัคร Referrer: ${errorMessage}`;
+    document.getElementById("registerStatus").classList.add("error");
+    alert(`❌ เกิดข้อผิดพลาดในการสมัคร Referrer: ${errorMessage}`);
+  }
+}
     alert("❌ กรุณาใส่จำนวน USDT ที่จะใช้ซื้อให้ถูกต้อง (ต้องมากกว่า 0)");
     return;
   }
